@@ -4,7 +4,7 @@ class Editablelabel extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            website : 'www.google.com',
+            website : 'https://www.google.com/',
             sample : 'Hello World'
         } 
     }
