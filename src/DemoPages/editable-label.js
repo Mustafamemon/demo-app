@@ -1,10 +1,29 @@
 import React, { Component } from 'react';
-
+import EditableLabel from 'label-editable-react'
 class Editablelabel extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            website : 'www.google.com',
+            sample : 'Hello World'
+        } 
+    }
+    
     render() {
         return (
-            <div>
-                <h5>Hello</h5>
+            <div className ='m-4'>
+               <EditableLabel 
+                heading = 'Heading'
+                initialValue = {this.state.sample}
+                save={(sample)=>{this.setState({sample})}}
+               />
+               <br />
+               <EditableLabel 
+                heading = 'Website'
+                initialValue = {this.state.website}
+                save={(website)=>{this.setState({website})}}
+                isWebsite  = {true}
+               />
             </div>
         );
     }

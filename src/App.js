@@ -5,7 +5,7 @@ import Editablelabel from './DemoPages/editable-label';
 
 function App() {
   return (
-    <Editablelabel></Editablelabel>
+    <Editablelabel />
     // <div className='App'>
     //   <header className="App-header">
     //     <img src={logo} className="App-logo" alt="logo" />
