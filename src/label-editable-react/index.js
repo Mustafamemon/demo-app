@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import cx from "classnames";
 import PropTypes from "prop-types";
 
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
@@ -105,42 +106,43 @@ const EditableLabel = (props) => {
   };
   return (
     <div
-      onMouseEnter={() => setHoverIcon(!hoverIcon)}
-      onMouseLeave={() => setHoverIcon(!hoverIcon)}
+      onMouseEnter={() => setHoverIcon(true)}
+      onMouseLeave={() => setHoverIcon(false)}
     >
       <h5>
         {props.heading}
-        {hoverIcon && props.isEditIcon ? (
-          <span
-            className={style.editicon}
-            onClick={() => {
-              if (view === "label") {
-                setView("text");
-              }
-            }}
-          >
+        <span className={cx(style.webicon, { "d-none": !props.isWebsite })}>
+          <a href={value}>
             {
               <FontAwesomeIcon
-                icon={faPencilAlt}
+                icon={faExternalLinkAlt}
                 size="1x"
                 className={style.fs10}
               />
             }
-          </span>
-        ) : null}
-        {props.isWebsite === true ? (
-          <span className={style.webicon}>
-            <a href={value}>
-              {
-                <FontAwesomeIcon
-                  icon={faExternalLinkAlt}
-                  size="1x"
-                  className={style.fs10}
-                />
-              }
-            </a>
-          </span>
-        ) : null}
+          </a>
+        </span>
+
+        <span
+          className={cx(style.editicon, {
+            [style.opacity0]: !hoverIcon,
+            [style.opacity1]: hoverIcon,
+            "d-none": !props.isEditIcon,
+          })}
+          onClick={() => {
+            if (view === "label") {
+              setView("text");
+            }
+          }}
+        >
+          {
+            <FontAwesomeIcon
+              icon={faPencilAlt}
+              size="1x"
+              className={style.fs10}
+            />
+          }
+        </span>
 
         <div className={style.pt6}>
           <h6>{view === "label" ? renderLabel() : renderInput()}</h6>

@@ -16,3 +16,10 @@
 .pt6{
     padding-top: 6px; 
 }
+.opacity0{
+    opacity: 0 !important;
+}
+
+.opacity1{
+    opacity: 1 !important;
+}
