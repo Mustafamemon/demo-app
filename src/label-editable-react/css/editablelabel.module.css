@@ -18,14 +18,30 @@
 .pt6{
     padding-top: 6px; 
 }
-.pointer {cursor: pointer;}
-.inputicon{
-    left:120px;
-}
+
 .opacity0{
     opacity: 0 !important;
 }
 
 .opacity1{
     opacity: 1 !important;
+}
+/* tick + cross*/
+
+.inputicon{
+    left:110px;
+}
+.w30{
+    width: 30px;
+}
+.pointer {
+    cursor: pointer;
+}
+button:focus {
+    outline:0;
+}
+
+/* remove input focus */
+*:focus {
+    outline: none;
 }

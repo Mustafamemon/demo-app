@@ -6,8 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faExternalLinkAlt,
   faPencilAlt,
-  faCheck,
-  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 
 import style from "./css/editablelabel.module.css";
@@ -92,30 +90,27 @@ const EditableLabel = (props) => {
             onKeyUp={keyUp}
           />
           <div className={cx(style.inputicon, "position-relative")}>
-            <button className={'border border-dark border-top-0'}>
-              {" "}
-              <FontAwesomeIcon
-                icon={faCheck}
-                size={"1x"}
-                onClick={() => {
-                  const e = { ...textInput };
-                  setPrevious(e.current.value);
-                  props.save(e.current.value);
-                  setView("label");
-                }}
-              />{" "}
+            <button
+              className={cx(style.w30, "border-0")}
+              onClick={() => {
+                const e = { ...textInput };
+                setPrevious(e.current.value);
+                props.save(e.current.value);
+                setView("label");
+              }}
+            >
+              <span className={"text-secondary"}>&#10003;</span>
             </button>
 
             <span className="pl-1 pr-1" />
-            <button className={'border border-dark border-top-0'}>
-              <FontAwesomeIcon
-                icon={faTimes}
-                size={"1x"}
-                onClick={() => {
-                  setValue(previous || "-");
-                  setView("label");
-                }}
-              />
+            <button
+              className={cx(style.w30, "border-0")}
+              onClick={() => {
+                setValue(previous || "-");
+                setView("label");
+              }}
+            >
+              <span className={"text-secondary"}>&#10007;</span>
             </button>
           </div>
         </div>
