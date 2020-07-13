@@ -1,20 +1,26 @@
 .editicon{
     padding: 0px 4px;
-    vertical-align: super;
     color:rgb(84, 92, 216);
-    cursor:pointer
+    cursor:pointer;
+    vertical-align:text-top
+
   }
 .webicon{
     padding: 0px 4px;
-    vertical-align: super;
     color:rgb(84, 92, 216);
-    cursor:pointer
+    cursor:pointer;
+    vertical-align:text-top
+
 }
 .fs10{
     font-size: 10px 
 }
 .pt6{
     padding-top: 6px; 
+}
+.pointer {cursor: pointer;}
+.inputicon{
+    left:120px;
 }
 .opacity0{
     opacity: 0 !important;

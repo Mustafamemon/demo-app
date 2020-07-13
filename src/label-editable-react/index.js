@@ -2,36 +2,32 @@ import React, { useState, useEffect, useRef } from "react";
 import cx from "classnames";
 import PropTypes from "prop-types";
 
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faExternalLinkAlt,
   faPencilAlt,
+  faCheck,
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 
 import style from "./css/editablelabel.module.css";
 
-const renderTooltip = (props) => {
-  return (
-    <Tooltip id="button-tooltip" {...props}>
-      Esc to Cancel
-    </Tooltip>
-  );
-};
 const EditableLabel = (props) => {
   const textInput = useRef(null);
-
   const [view, setView] = useState("label");
   const [value, setValue] = useState(props.initialValue);
   const [previous, setPrevious] = useState(props.initialoValue);
-  const [hoverIcon, setHoverIcon] = useState(false);
+  const [hoverEditIcon, setHoverEditIcon] = useState(false);
+
   useEffect(() => {
     if (view === "text") {
       textInput.current.focus();
     }
   }, [view, textInput]);
+
   useEffect(() => {
     setValue(props.initialValue || "-");
+    setPrevious(props.initialValue || "-");
   }, [props.initialValue]);
   const keyUp = (e) => {
     if (props.disableKeys === true) {
@@ -79,11 +75,7 @@ const EditableLabel = (props) => {
   const renderInput = () => {
     return (
       <div>
-        <OverlayTrigger
-          placement="right"
-          delay={{ show: 250, hide: 400 }}
-          overlay={renderTooltip}
-        >
+        <div>
           <input
             type={props.inputType}
             value={value}
@@ -92,22 +84,48 @@ const EditableLabel = (props) => {
             onChange={(e) => {
               setValue(e.target.value);
             }}
-            onBlur={(e) => {
-              console.log(view);
-              setView("label");
-              setPrevious(e.target.value);
-              props.save(e.target.value);
-            }}
+            // onBlur={(e) => {
+            //   setView("label");
+            //   setPrevious(e.target.value);
+            //   props.save(e.target.value);
+            // }}
             onKeyUp={keyUp}
           />
-        </OverlayTrigger>
+          <div className={cx(style.inputicon, "position-relative")}>
+            <button className={'border border-dark border-top-0'}>
+              {" "}
+              <FontAwesomeIcon
+                icon={faCheck}
+                size={"1x"}
+                onClick={() => {
+                  const e = { ...textInput };
+                  setPrevious(e.current.value);
+                  props.save(e.current.value);
+                  setView("label");
+                }}
+              />{" "}
+            </button>
+
+            <span className="pl-1 pr-1" />
+            <button className={'border border-dark border-top-0'}>
+              <FontAwesomeIcon
+                icon={faTimes}
+                size={"1x"}
+                onClick={() => {
+                  setValue(previous || "-");
+                  setView("label");
+                }}
+              />
+            </button>
+          </div>
+        </div>
       </div>
     );
   };
   return (
     <div
-      onMouseEnter={() => setHoverIcon(true)}
-      onMouseLeave={() => setHoverIcon(false)}
+      onMouseEnter={() => setHoverEditIcon(true)}
+      onMouseLeave={() => setHoverEditIcon(false)}
     >
       <h5>
         {props.heading}
@@ -116,7 +134,7 @@ const EditableLabel = (props) => {
             {
               <FontAwesomeIcon
                 icon={faExternalLinkAlt}
-                size="1x"
+                size="2x"
                 className={style.fs10}
               />
             }
@@ -125,8 +143,8 @@ const EditableLabel = (props) => {
 
         <span
           className={cx(style.editicon, {
-            [style.opacity0]: !hoverIcon,
-            [style.opacity1]: hoverIcon,
+            [style.opacity0]: !hoverEditIcon,
+            [style.opacity1]: hoverEditIcon,
             "d-none": !props.isEditIcon,
           })}
           onClick={() => {
