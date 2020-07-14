@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import EditableLabel from "label-editable-react";
+import EditableLabel from "../label-editable-react";
 import {Row,Col} from 'react-bootstrap'
 class Editablelabel extends Component {
   constructor(props) {
