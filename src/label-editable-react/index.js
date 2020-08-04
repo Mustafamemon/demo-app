@@ -43,7 +43,7 @@ const EditableLabel = (props) => {
       props.save(e.target.value);
     }
   };
-  
+
   const renderLabel = () => {
     if (props.isWebsite)
       return (
@@ -72,59 +72,58 @@ const EditableLabel = (props) => {
 
   const renderInput = () => {
     return (
+      <>
       <div>
-        <div>
-          <input
-            type={props.inputType}
-            value={value}
-            ref={textInput}
-            className={props.inputClass || ""}
-            onChange={(e) => {
-              setValue(e.target.value);
-            }}
-            // onBlur={(e) => {
-            //   setView("label");
-            //   setPrevious(e.target.value);
-            //   props.save(e.target.value);
-            // }}
-            onKeyUp={keyUp}
-          />
-          <div >
-            <div className={style.card}>
+        <input
           
-            <button
-              className={cx(style.wh20, "border-0 rounded")}
-              onClick={() => {
-                const e = { ...textInput };
-                setPrevious(e.current.value);
-                props.save(e.current.value);
-                setView("label");
-              }}
-            >
-              <span className={"text-secondary"}>&#10003;</span>
-            </button>
-
-            <span className="p-1" />
-            <button
-              className={cx(style.wh20, "border-0 rounded")}
-              onClick={() => {
-                setValue(previous || "-");
-                setView("label");
-              }}
-            >
-              <span className={"text-secondary"}>&#10007;</span>
-            </button>
-            </div>
-          </div>
+          type={props.inputType}
+          value={value}
+          ref={textInput}
+          className={cx(props.inputClass,'w-100 d-block')}
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
+          // onBlur={(e) => {
+          //   setView("label");
+          //   setPrevious(e.target.value);
+          //   props.save(e.target.value);
+          // }}
+          onKeyUp={keyUp}
+        />
         </div>
-      </div>
+        <div className={style.card}>
+          <button
+            className={cx(style.wh20, "border-0 rounded")}
+            onClick={() => {
+              const e = { ...textInput };
+              setPrevious(e.current.value);
+              props.save(e.current.value);
+              setView("label");
+            }}
+          >
+            <span className={"text-secondary"}>&#10003;</span>
+          </button>
+
+          <span className="p-1" />
+          <button
+            className={cx(style.wh20, "border-0 rounded")}
+            onClick={() => {
+              setValue(previous || "-");
+              setView("label");
+            }}
+          >
+            <span className={"text-secondary"}>&#10007;</span>
+          </button>
+        </div>
+      </>
     );
   };
   return (
     <div
+      key={props.heading}
       onMouseEnter={() => setHoverEditIcon(true)}
       onMouseLeave={() => setHoverEditIcon(false)}
-      style={{width:'182px'}}
+      className='w-75'
     >
       <h5>
         {props.heading}
@@ -162,7 +161,7 @@ const EditableLabel = (props) => {
         </span>
 
         <div className={style.pt6}>
-        <h6>  {view === "label" ? renderLabel(): renderInput()}</h6> 
+          <h6> {view === "label" ? renderLabel() : renderInput()}</h6>
         </div>
       </h5>
     </div>
